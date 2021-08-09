@@ -33,6 +33,7 @@ MODULES_ON = {
     'botmanage',
     'dice',
     'asill',
+    'rss',
     'groupmaster',
     # 'hourcall',
     # 'kancolle',
