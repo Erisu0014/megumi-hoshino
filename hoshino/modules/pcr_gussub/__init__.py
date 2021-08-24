@@ -1,3 +1,7 @@
+# Refer to the code of priconne games in HoshinoBot by @Ice-Cirno
+# Slightly modified by GWYOG
+# Under GPL-3.0 License
+
 import os
 import sqlite3
 
@@ -55,6 +59,9 @@ class GameMaster:
     def start_game(self, gid):
         return Game(gid, self)
 
+    def exit_game(self, gid):
+        del self.playing[gid]
+
     def get_game(self, gid):
         return self.playing[gid] if gid in self.playing else None
 
@@ -75,11 +82,8 @@ class Game:
         return self
 
     def __exit__(self, type_, value, trace):
-        del self.gm.playing[self.gid]
+        if self.gid in self.gm.playing and self.gm.playing[self.gid] == self:
+            del self.gm.playing[self.gid]
 
     def record(self):
         return self.gm.db.record_winning(self.gid, self.winner)
-
-
-from . import desc_guess
-from . import avatar_guess
